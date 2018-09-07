@@ -505,28 +505,28 @@ chunk    {0} bundle.js (main) 73 bytes >{1}< >{2}< [entry] [rendered]
     > ./index main
  [0] ./index.js 51 bytes {0} [built]
      entry ./index  main
-     Xms (resolving: Xms, building: Xms)
+     Xms (resolving: Xms, integration: Xms, building: Xms)
  [1] ./a.js 22 bytes {0} [built]
      cjs require ./a [0] ./index.js 1:0-14
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {1} 1.bundle.js 22 bytes <{0}> [rendered]
     > ./b [0] ./index.js 2:0-16
  [2] ./b.js 22 bytes {1} [built]
      amd require ./b [0] ./index.js 2:0-16
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {2} 2.bundle.js 54 bytes <{0}> >{3}< [rendered]
     > ./c [0] ./index.js 3:0-16
  [3] ./c.js 54 bytes {2} [built]
      amd require ./c [0] ./index.js 3:0-16
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {3} 3.bundle.js 44 bytes <{2}> [rendered]
     > [3] ./c.js 1:0-52
  [4] ./d.js 22 bytes {3} [built]
      require.ensure item ./d [3] ./c.js 1:0-52
-     [0] Xms -> [3] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> [3] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
  [5] ./e.js 22 bytes {3} [built]
      require.ensure item ./e [3] ./c.js 1:0-52
-     [0] Xms -> [3] Xms -> Xms (resolving: Xms, building: Xms)"
+     [0] Xms -> [3] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)"
 `;
 
 exports[`StatsTestCases should print correct stats for chunks-development 1`] = `
@@ -543,29 +543,29 @@ chunk    {0} 0.bundle.js 60 bytes <{c}> [rendered]
     > [./c.js] ./c.js 1:0-52
  [./d.js] 22 bytes {0} [built]
      require.ensure item ./d [./c.js] 1:0-52
-     [./index.js] Xms -> [./c.js] Xms -> Xms (resolving: Xms, building: Xms)
+     [./index.js] Xms -> [./c.js] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
  [./e.js] 38 bytes {0} [built]
      require.ensure item ./e [./c.js] 1:0-52
-     [./index.js] Xms -> [./c.js] Xms -> Xms (resolving: Xms, building: Xms)
+     [./index.js] Xms -> [./c.js] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk {b} b.bundle.js 22 bytes <{main}> [rendered]
     > ./b [./index.js] ./index.js 2:0-16
  [./b.js] 22 bytes {b} [built]
      amd require ./b [./index.js] 2:0-16
-     [./index.js] Xms -> Xms (resolving: Xms, building: Xms)
+     [./index.js] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk {c} c.bundle.js 54 bytes <{main}> >{0}< [rendered]
     > ./c [./index.js] ./index.js 3:0-16
  [./c.js] 54 bytes {c} [built]
      amd require ./c [./index.js] 3:0-16
-     [./index.js] Xms -> Xms (resolving: Xms, building: Xms)
+     [./index.js] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk {main} bundle.js (main) 73 bytes >{b}< >{c}< [entry] [rendered]
     > ./index main
  [./a.js] 22 bytes {main} [built]
      cjs require ./a [./e.js] 1:0-14
      cjs require ./a [./index.js] 1:0-14
-     [./index.js] Xms -> Xms (resolving: Xms, building: Xms)
+     [./index.js] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
  [./index.js] 51 bytes {main} [built]
      entry ./index  main
-     Xms (resolving: Xms, building: Xms)"
+     Xms (resolving: Xms, integration: Xms, building: Xms)"
 `;
 
 exports[`StatsTestCases should print correct stats for circular-correctness 1`] = `
@@ -1035,6 +1035,67 @@ chunk    {3} c.js (c) 49 bytes <{1}> <{4}> >{2}< [rendered]
 chunk    {4} b.js (b) 49 bytes <{2}> >{3}< [rendered]
  [4] ./module-b.js 49 bytes {4} [built]
      import() ./module-b [2] ./module-a.js 1:0-47"
+`;
+
+exports[`StatsTestCases should print correct stats for graph-correctness-entries 2`] = `
+"Hash: <CLR=BOLD>703cfa0463cb3c00055c</CLR>
+Time: <CLR=BOLD>X</CLR>ms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  <CLR=BOLD>Asset</CLR>      <CLR=BOLD>Size</CLR>  <CLR=BOLD>Chunks</CLR>  <CLR=39,BOLD><CLR=22>           <CLR=39,BOLD><CLR=22><CLR=BOLD>Chunk Names</CLR>
+<CLR=32,BOLD>main.js</CLR>  3.57 KiB       <CLR=BOLD>0</CLR>  <CLR=32,BOLD>[emitted]</CLR>  main
+Entrypoint <CLR=BOLD>main</CLR> = <CLR=32,BOLD>main.js</CLR>
+[0] <CLR=BOLD>./index.js</CLR> 0 bytes {<CLR=33,BOLD>0</CLR>}<CLR=32,BOLD> [built]</CLR>"
+`;
+
+exports[`StatsTestCases should print correct stats for graph-correctness-entries 3`] = `
+"Hash: <CLR=BOLD>703cfa0463cb3c00055c</CLR>
+Time: <CLR=BOLD>X</CLR>ms
+Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
+  <CLR=BOLD>Asset</CLR>      <CLR=BOLD>Size</CLR>  <CLR=BOLD>Chunks</CLR>  <CLR=39,BOLD><CLR=22>           <CLR=39,BOLD><CLR=22><CLR=BOLD>Chunk Names</CLR>
+<CLR=32>main.js</CLR>  3.57 KiB       <CLR=BOLD>0</CLR>  <CLR=32>[emitted]</CLR>  main
+Entrypoint <CLR=BOLD>main</CLR> = <CLR=32>main.js</CLR>
+[0] <CLR=BOLD>./index.js</CLR> 0 bytes {<CLR=33>0</CLR>}<CLR=32> [built]</CLR>"
+`;
+
+exports[`StatsTestCases should print correct stats for graph-correctness-entries 4`] = `
+"Hash: d137985c3dc6e1d36484ae900f5ab7a1699250503bca3a1a2ed59b322b45
+Child
+    Hash: d137985c3dc6e1d36484
+    Time: Xms
+    Built at: Thu Jan 01 1970 00:00:00 GMT
+      Asset     Size  Chunks             Chunk Names
+    main.js  3.6 KiB       0  [emitted]  main
+    Entrypoint main = main.js
+    [0] ./index.js 24 bytes {0} [built]
+Child
+    Hash: ae900f5ab7a169925050
+    Time: Xms
+    Built at: Thu Jan 01 1970 00:00:00 GMT
+      Asset     Size  Chunks             Chunk Names
+    main.js  3.6 KiB       0  [emitted]  main
+    Entrypoint main = main.js
+    [0] ./index.js 24 bytes {0} [built]
+Child
+    Hash: 3bca3a1a2ed59b322b45
+    Time: Xms
+    Built at: Thu Jan 01 1970 00:00:00 GMT
+      Asset     Size  Chunks             Chunk Names
+    main.js  3.6 KiB       0  [emitted]  main
+    Entrypoint main = main.js
+    [0] ./index.js 24 bytes {0} [built]"
+`;
+
+exports[`StatsTestCases should print correct stats for graph-correctness-entries 5`] = `
+"Hash: 4a2b1eec4a4806b9dc12
+Time: Xms
+Built at: Thu Jan 01 1970 00:00:00 GMT
+    Asset     Size  Chunks  Chunk Names
+bundle.js  3.6 KiB       0  main
+Entrypoint main = bundle.js
+[0] ./entry.js 29 bytes {0} [built]
+
+ERROR in Dll manifest blank-manifest.json
+Unexpected end of JSON input while parsing near ''"
 `;
 
 exports[`StatsTestCases should print correct stats for graph-correctness-modules 1`] = `
@@ -1976,6 +2037,18 @@ Entrypoint main = main.js
 [5] ./e.js 22 bytes {3} [built]"
 `;
 
+exports[`StatsTestCases should print correct stats for preset-normal 2`] = `
+"Child minimal:
+       1 module
+Child verbose:
+    Entrypoint main = main.js
+    [0] ./index.js 8 bytes {0} [built]"
+`;
+
+exports[`StatsTestCases should print correct stats for preset-normal 3`] = `""`;
+
+exports[`StatsTestCases should print correct stats for preset-normal 4`] = `""`;
+
 exports[`StatsTestCases should print correct stats for preset-normal-performance 1`] = `
 "Time: <CLR=BOLD>X</CLR>ms
 Built at: Thu Jan 01 1970 <CLR=BOLD>00:00:00</CLR> GMT
@@ -2051,33 +2124,33 @@ chunk    {0} main.js (main) 73 bytes >{1}< >{2}< [entry] [rendered]
  [0] ./index.js 51 bytes {0} [depth 0] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      entry ./index  main
-     Xms (resolving: Xms, building: Xms)
+     Xms (resolving: Xms, integration: Xms, building: Xms)
  [1] ./a.js 22 bytes {0} [depth 1] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      cjs require ./a [0] ./index.js 1:0-14
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {1} 1.js 22 bytes <{0}> [rendered]
     > ./b [0] ./index.js 2:0-16
  [2] ./b.js 22 bytes {1} [depth 1] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      amd require ./b [0] ./index.js 2:0-16
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {2} 2.js 54 bytes <{0}> >{3}< [rendered]
     > ./c [0] ./index.js 3:0-16
  [3] ./c.js 54 bytes {2} [depth 1] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      amd require ./c [0] ./index.js 3:0-16
-     [0] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
 chunk    {3} 3.js 44 bytes <{2}> [rendered]
     > [3] ./c.js 1:0-52
  [4] ./d.js 22 bytes {3} [depth 2] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      require.ensure item ./d [3] ./c.js 1:0-52
-     [0] Xms -> [3] Xms -> Xms (resolving: Xms, building: Xms)
+     [0] Xms -> [3] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)
  [5] ./e.js 22 bytes {3} [depth 2] [built]
      ModuleConcatenation bailout: Module is not an ECMAScript module
      require.ensure item ./e [3] ./c.js 1:0-52
-     [0] Xms -> [3] Xms -> Xms (resolving: Xms, building: Xms)"
+     [0] Xms -> [3] Xms -> Xms (resolving: Xms, integration: Xms, building: Xms)"
 `;
 
 exports[`StatsTestCases should print correct stats for resolve-plugin-context 1`] = `
@@ -2160,6 +2233,11 @@ Entrypoint e2 = runtime.js all.js e2.js"
 `;
 
 exports[`StatsTestCases should print correct stats for runtime-chunk-single 1`] = `
+"Entrypoint e1 = runtime.js e1.js
+Entrypoint e2 = runtime.js e2.js"
+`;
+
+exports[`StatsTestCases should print correct stats for runtime-chunk-single 2`] = `
 "Entrypoint e1 = runtime.js e1.js
 Entrypoint e2 = runtime.js e2.js"
 `;
@@ -2342,7 +2420,19 @@ bundle.js  3.57 KiB       0  [emitted]  main
 Entrypoint main = bundle.js
 [0] ./index.js 0 bytes {0} [built]
     entry ./index  main
-    Xms (resolving: Xms, building: Xms)"
+    Xms (resolving: Xms, integration: Xms, building: Xms)"
+`;
+
+exports[`StatsTestCases should print correct stats for simple-more-info 2`] = `
+"Hash: 64de01465a28fb4267d8
+Time: Xms
+Built at: Thu Jan 01 1970 00:00:00 GMT
+    Asset      Size  Chunks             Chunk Names
+bundle.js  3.57 KiB       0  [emitted]  main
+Entrypoint main = bundle.js
+[0] ./index.js 0 bytes {0} [built]
+    entry ./index  main
+    Xms (resolving: Xms, integration: Xms, building: Xms)"
 `;
 
 exports[`StatsTestCases should print correct stats for split-chunks 1`] = `
